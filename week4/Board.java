@@ -22,7 +22,7 @@ public class Board
    public int hamming()                   // number of blocks out of place
    {
       int numberOfBlocKsOutOfSpace = 0;
-      if (board[0][0] != 1)
+      /*if (board[0][0] != 1)
          numberOfBlocKsOutOfSpace++;
       if (board[0][1] != 2)
          numberOfBlocKsOutOfSpace++;
@@ -38,8 +38,19 @@ public class Board
          numberOfBlocKsOutOfSpace++;
       if (board[2][1] != 8)
          numberOfBlocKsOutOfSpace++;
-      //if (board[2][2] != 0)
-        // numberOfBlocKsOutOfSpace++;
+      
+      return numberOfBlocKsOutOfSpace;*/
+      
+      //for a board with dimensions N*N use the following
+      for(int row = 0; row < N; row++)
+         for(int col = 0; col < N; col++)
+         {
+            if(row == N-1 && col == N-1)
+               break;
+            if(board[row][col] != row * N + col + 1)
+               numberOfBlocKsOutOfSpace++;
+         }
+               
       return numberOfBlocKsOutOfSpace;
    }
    
@@ -92,9 +103,7 @@ public class Board
          return toReturn;
       return -1;  
       */
-      return (value - 1) / N;
-      
-               
+      return (value - 1) / N;                
    }
    
    //return the column of a certain value in the correct board
@@ -137,8 +146,7 @@ public class Board
                else
                   manhattandDistance += j-col;
             }
-         }
-      
+         }      
       return manhattandDistance;
    }
    
@@ -165,8 +173,7 @@ public class Board
                         return toReturn;
                      }
             }
-         }
-      
+         }      
       return toReturn;
    }
    
@@ -227,16 +234,14 @@ public class Board
       {
          Board local = new Board(board);
          local.swap(row, col, row, col-1);
-         stack.push(local);
-        
+         stack.push(local);        
       }
       
       if(col + 1 < N)
       {
          Board local = new Board(board);
          local.swap(row, col, row, col+1);
-         stack.push(local);
-         
+         stack.push(local);         
       }
             
       return stack;
